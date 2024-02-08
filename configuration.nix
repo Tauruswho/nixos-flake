@@ -249,6 +249,7 @@ users.users.monica = {
       xfce.thunar-volman
       xfce.thunar-archive-plugin
       xfce.thunar-media-tags-plugin
+      kicad
     ];
 
  # Some programs need SUID wrappers, can be configured further or are
@@ -286,7 +287,7 @@ users.users.monica = {
   nix.gc = {
                 automatic = true;
                 dates = "weekly";
-                options = "--delete-older-than 7d";
+                options = "--delete-older-than 14d";
         };
   boot.kernel.sysctl = { "vm.swappiness" = 10;};
 
