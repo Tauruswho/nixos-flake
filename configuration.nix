@@ -301,6 +301,11 @@ users.users.monica = {
   monthly = 1;
 };
 
+  services.zfs.autoScrub = {
+  enable = true;
+  interval = "*-*-1,15 02:30";
+};
+
  # NFS Server
  services.nfs.server.enable = true;
  services.nfs.server.exports = ''  /home 192.168.1.0/18(rw,async,insecure,no_root_squash,no_subtree_check)  '';
