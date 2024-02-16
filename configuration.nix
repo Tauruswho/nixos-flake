@@ -27,7 +27,7 @@
    boot.zfs.extraPools = [ "Backup-zfs-2" "home-spare" ];
    networking.hostId = "3cc408bd";
 
-  networking.hostName = "nix-asus"; # Define your hostname.
+  networking.hostName = "who"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
   # Configure network proxy if necessary
@@ -36,12 +36,25 @@
 
   # Enable networking
   networking.networkmanager.enable = true;
-  networking.defaultGateway = "192.168.1.1";
-  networking.nameservers = [ "1.1.1.1" "1.0.0.1" ];
-  networking.interfaces.eth0.ipv4.addresses = [ {
-  address = "192.168.1.27";
-  prefixLength = 24;
-} ];
+  networking.extraHosts =
+  ''
+    192.168.1.21 who
+    192.168.1.22 who
+    192.168.1.23 rocky
+    192.168.1.24 rocky
+    192.168.1.25 nuc7
+    192.168.1.26 nuc7
+    192.168.1.27 hp
+    192.168.1.28 hp
+    192.168.1.29 nuc6
+    192.168.1.30 nuc6
+  '';
+  # networking.defaultGateway = "192.168.1.1";
+  # networking.nameservers = [ "1.1.1.1" "1.0.0.1" ];
+  # networking.interfaces.eth0.ipv4.addresses = [ {
+  # address = "192.168.1.27";
+  # prefixLength = 24;
+ # } ];
 
   # Set your time zone.
   time.timeZone = "Europe/Madrid";
@@ -126,7 +139,7 @@
     users.users.mince = {
     isNormalUser = true;
     description = "Mince";
-    extraGroups = [ "networkmanager" "wheel" "mark" "mince" "monica" "scanner" "lp" ];
+    extraGroups = [ "networkmanager" "wheel" "mark" "mince" "monica" "scanner" "lp" "users" ];
     packages = with pkgs; [
     # firefox
     ];
@@ -136,7 +149,7 @@ users.users.mark = {
   uid = 1955;
   home  = "/home/mark";
   description  = "Mark";
-  extraGroups  = [ "wheel" "networkmanager" "mark" "monica" "scanner" "lp" ];
+  extraGroups  = [ "wheel" "networkmanager" "mark" "mince" "monica" "scanner" "lp" "users" ];
   
 };
 
@@ -145,7 +158,7 @@ users.users.monica = {
   uid = 1957;
   home  = "/home/monica";
   description  = "Monica";
-  extraGroups  = [ "wheel" "networkmanager" "monica" "mark" "scanner" "lp" ];
+  extraGroups  = [ "wheel" "networkmanager" "monica" "mark" "mince" "scanner" "lp" "users" ];
   
 };
 
