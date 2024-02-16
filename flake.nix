@@ -16,7 +16,7 @@
 
   outputs = { self, nixpkgs, ... }@inputs: {
     nixosConfigurations = {
-    "nix-asus" = nixpkgs.lib.nixosSystem {
+    "who" = nixpkgs.lib.nixosSystem {
        system = "x86_64-linux";
        modules = [ ./configuration.nix ];
       };
