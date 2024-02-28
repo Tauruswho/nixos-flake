@@ -48,6 +48,8 @@
     192.168.1.28 hp
     192.168.1.29 nuc6
     192.168.1.30 nuc6
+    192.168.1.31 raspi
+    192.168.1.32 raspi
   '';
   # networking.defaultGateway = "192.168.1.1";
   # networking.nameservers = [ "1.1.1.1" "1.0.0.1" ];
@@ -137,32 +139,41 @@
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
     users.users.mince = {
+    homeMode = "770";
     isNormalUser = true;
+    uid = 1956;
+    home  = "/home/mince";
     description = "Mince";
+    group ="mince";
     extraGroups = [ "networkmanager" "wheel" "mark" "mince" "monica" "scanner" "lp" "users" ];
     packages = with pkgs; [
     # firefox
     ];
   };
-users.users.mark = {
+  users.users.mark = {
+  homeMode = "770";
   isNormalUser  = true;
   uid = 1955;
   home  = "/home/mark";
   description  = "Mark";
+  group = "mark";
   extraGroups  = [ "wheel" "networkmanager" "mark" "mince" "monica" "scanner" "lp" "users" ];
   
 };
 
-users.users.monica = {
+  users.users.monica = {
+  homeMode = "770";
   isNormalUser  = true;
   uid = 1957;
   home  = "/home/monica";
   description  = "Monica";
+  group = "monica";
   extraGroups  = [ "wheel" "networkmanager" "monica" "mark" "mince" "scanner" "lp" "users" ];
   
 };
 
   users.groups.mark.gid = 1955;
+  users.groups.mince.gid = 1956;
   users.groups.monica.gid = 1957;
 
   security.sudo.extraConfig = " Defaults	timestamp_timeout=60 ";
@@ -185,12 +196,19 @@ users.users.monica = {
   redhat-official-fonts
   ];
 
+  programs.git = {
+  enable = true;
+  package = pkgs.gitFull;
+  config.credential.helper = "libsecret";
+};
+
+
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
   #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
       wget
-      git
+      gitFull
       vim
       curl
       firefox
