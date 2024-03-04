@@ -86,11 +86,9 @@
   # services.xserver.desktopManager.cinnamon.enable = true;
   # services.cinnamon.apps.enable
   # Configure keymap in X11
-  services.xserver = {
-    layout = "gb";
-    xkbVariant = "";
-  };
-
+  services.xserver.xkb.layout = "gb";
+  #  services.xserver.xkb.Variant = "";
+  
   # Configure console keymap
   console.keyMap = "uk";
 
@@ -273,7 +271,7 @@
       eagle
       libsForQt5.kdeconnect-kde
       ghostscript
-      onlyoffice-bin_7_5
+      onlyoffice-bin_latest
       enlightenment.terminology
       krusader
       xfce.thunar
@@ -281,9 +279,14 @@
       xfce.thunar-archive-plugin
       xfce.thunar-media-tags-plugin
       kicad
+      teams-for-linux
+      zoom-us
+      obs-studio
+      enlightenment.econnman
+      fastfetch
     ];
 
- # Some programs need SUID wrappers, can be configured further or are
+  # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
   # programs.mtr.enable = true;
   # programs.gnupg.agent = {
