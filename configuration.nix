@@ -83,6 +83,7 @@
   services.xserver.displayManager.sddm.enable = true;
   services.xserver.desktopManager.plasma5.enable = true;
   services.xserver.desktopManager.enlightenment.enable = true;
+  programs.dconf.enable = true;
   # services.xserver.desktopManager.cinnamon.enable = true;
   # services.cinnamon.apps.enable
   # Configure keymap in X11
