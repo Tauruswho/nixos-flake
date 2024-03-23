@@ -98,7 +98,7 @@
   services.printing = {
     # run on first setup: sudo hp-setup -i -a
     enable  =  true;
-    drivers = [ pkgs.hplipWithPlugin ];
+    drivers = [ pkgs.hplip ];
 };
 
   hardware.sane.enable = true; # enables support for SANE scanners
