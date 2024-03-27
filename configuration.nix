@@ -24,7 +24,7 @@
    boot.kernelPackages = config.boot.zfs.package.latestCompatibleLinuxPackages;
    boot.supportedFilesystems = [ "zfs" ];
   # boot.zfs.forceImportRoot = false;
-   boot.zfs.extraPools = [ "Backup-zfs-2" "home-spare" ];
+   boot.zfs.extraPools = [    ];
    networking.hostId = "3cc408bd";
 
   networking.hostName = "who"; # Define your hostname.
@@ -80,8 +80,8 @@
   services.xserver.enable = true;
   
   # Enable the KDE Plasma Desktop Environment.
-  services.xserver.displayManager.sddm.enable = true;
-  services.xserver.desktopManager.plasma5.enable = true;
+  services.xserver.displayManager.lightdm.enable = true;
+  services.xserver.desktopManager.cinnamon.enable = true;
   services.xserver.desktopManager.enlightenment.enable = true;
   programs.dconf.enable = true;
   # services.xserver.desktopManager.cinnamon.enable = true;
@@ -94,21 +94,32 @@
   console.keyMap = "uk";
 
   # Enable CUPS to print documents and enable scanners.
-  # services.printing.enable = true;
-  services.printing = {
+  services.printing.enable = true;
     # run on first setup: sudo hp-setup -i -a
-    enable  =  true;
-    drivers = [ pkgs.hplip ];
-};
-
-  hardware.sane.enable = true; # enables support for SANE scanners
+  services.printing.drivers = [ pkgs.hplip ];
+  # enables support for SANE scanners
+  hardware.sane.enable = true;
   services.ipp-usb.enable=true;
   hardware.sane.extraBackends = [ pkgs.hplipWithPlugin ];
   nixpkgs.config.packageOverrides = pkgs: {
     xsaneGimp = pkgs.xsane.override { gimpSupport = true; };
-  services.avahi.enable = true;
-  services.avahi.nssmdns = true;
   services.fwupd.enable = true;
+  services.avahi = {
+  enable = true;
+  nssmdns = true;
+  openFirewall = true;
+  publish = {
+    enable = true;
+    userServices = true;
+  };
+};
+services.printing = {
+  listenAddresses = [ "*:631" ];
+  allowFrom = [ "all" ];
+  browsing = true;
+  defaultShared = true;
+  openFirewall = true;
+};
 
   # Bluetooth
   hardware.bluetooth.enable = true; # enables support for Bluetooth
@@ -137,6 +148,16 @@
   # services.xserver.libinput.enable = true;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
+  users.users.twat = {
+    isNormalUser = true;
+    description = "Twat";
+    extraGroups = [ "networkmanager" "wheel" ];
+    packages = with pkgs; [
+    #  firefox
+    #  thunderbird
+    ];
+  };
+
     users.users.mince = {
     homeMode = "770";
     isNormalUser = true;
@@ -285,6 +306,7 @@
       obs-studio
       enlightenment.econnman
       fastfetch
+      gnome.dconf-editor
     ];
 
   # Some programs need SUID wrappers, can be configured further or are
